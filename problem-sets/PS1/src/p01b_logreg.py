@@ -1,6 +1,6 @@
 import numpy as np
-import util
 
+import util
 from linear_model import LinearModel
 
 
