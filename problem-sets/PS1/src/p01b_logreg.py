@@ -1,7 +1,7 @@
 import numpy as np
 
-import util
-from linear_model import LinearModel
+from src import util
+from src.linear_model import LinearModel
 
 
 def main(train_path, eval_path, pred_path):
