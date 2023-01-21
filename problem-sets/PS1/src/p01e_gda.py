@@ -39,6 +39,22 @@ class GDA(LinearModel):
             theta: GDA model parameters.
         """
         # *** START CODE HERE ***
+        m, n = x.shape
+        y = y.reshape((-1, 1))
+
+        self.theta = np.zeros((n+1, 1))
+
+        phi = 1 / m * np.sum(y==1)
+        mu0 = np.sum((y==0) * x, axis=0) / np.sum(y==0)
+        mu1 = np.sum((y==1) * x) / np.sum(y==1)
+        cov = 1/m *  (x - (y==0)*mu0 - (y==1)*mu1).T @ (x - (y==0)*mu0 - (y==1)*mu1)
+
+        theta = np.linalg.inv(cov) @ (mu1 - mu0).reshape(-1, 1)
+        theta0 = 0.5 * (mu0 + mu1).T @ np.linalg.inv(cov) @ (mu0 - mu1) - np.log(1-phi/phi)
+        self.theta[0] = theta0
+
+
+
         # *** END CODE HERE ***
 
     def predict(self, x):
